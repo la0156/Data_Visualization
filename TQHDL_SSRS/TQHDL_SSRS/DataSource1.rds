@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DataSource1">
+  <ConnectionProperties>
+    <Extension>OLEDB-MD</Extension>
+    <ConnectString>Data Source=ADMIN;Initial Catalog=TQHDL_SSAS</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>4f169b33-c20b-431c-85ab-2340a3cc717c</DataSourceID>
+</RptDataSource>

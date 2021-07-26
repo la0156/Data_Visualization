@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "TQHDL_SSIS", "TQHDL_SSIS\TQHDL_SSIS.dtproj", "{B3A2BEE6-2A37-4399-A3AB-74EF13934AFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3A2BEE6-2A37-4399-A3AB-74EF13934AFF}.Development|Default.ActiveCfg = Development
+		{B3A2BEE6-2A37-4399-A3AB-74EF13934AFF}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B43005A-6141-4F22-B81C-7C39EE805161}
+	EndGlobalSection
+EndGlobal

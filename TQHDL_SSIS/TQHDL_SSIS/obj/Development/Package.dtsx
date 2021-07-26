@@ -1,0 +1,2530 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/14/2021 8:21:20 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ADMIN"
+  DTS:CreatorName="ADMIN\Admin"
+  DTS:DTSID="{9307DCC1-12A8-4A9E-A5E6-A828F59F61D7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.157"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{9705A5F8-3348-4216-BFC3-176F45D21E52}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ADMIN.DanSoDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8B2F4280-58F1-42F1-B566-EE3B48DD349C}"
+      DTS:ObjectName="ADMIN.DanSoDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ADMIN;Initial Catalog=DanSoDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{9A27C867-719D-41D0-87B5-EA6B5ED4D865}"
+      DTS:ObjectName="ADMIN.DWH_DimFact">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ADMIN;Initial Catalog=DWH_DimFact;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Các Dim"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:Disabled="True"
+      DTS:DTSID="{166A7F26-075E-4C33-9C2A-1876819F38F3}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Các Dim">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Các Dim\Dim_KV"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{FAE7BD2D-900C-43B3-8639-30BEE606DDA0}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Dim_KV"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Các Dim\Dim_KV\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Các Dim\Dim_KV\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_KV\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\Các Dim\Dim_KV\Data Conversion.Inputs[Data Conversion Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Các Dim\Dim_KV\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\Các Dim\Dim_KV\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_KV\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_KV\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Các Dim\Dim_KV\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Dim_KV]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Các Dim\Dim_KV\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id_KV]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="Id_KV"
+                          externalMetadataColumnId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_KV]"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_KV]" />
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TenKV]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="TenKV"
+                          externalMetadataColumnId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TenKV]"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[TenKV]" />
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id_vungmien]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="Id_vungmien"
+                          externalMetadataColumnId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_vungmien]"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_vungmien]" />
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id_LoaiKV]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="Id_LoaiKV"
+                          externalMetadataColumnId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_LoaiKV]"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_KV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_KV" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TenKV]"
+                          dataType="wstr"
+                          length="50"
+                          name="TenKV" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_vungmien" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_LoaiKV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_LoaiKV" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_KV\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Các Dim\Dim_KV\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[KV]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Các Dim\Dim_KV\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_KV]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_KV]"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_KV]"
+                          name="Id_KV"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[TenKV]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TenKV]"
+                          length="50"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[TenKV]"
+                          name="TenKV"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_vungmien]"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_vungmien]"
+                          name="Id_vungmien"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_LoaiKV]"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]"
+                          name="Id_LoaiKV"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_KV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_KV" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TenKV]"
+                          dataType="wstr"
+                          length="50"
+                          name="TenKV" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_vungmien" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_LoaiKV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_LoaiKV" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_KV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_KV]"
+                          name="Id_KV" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TenKV]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TenKV]"
+                          name="TenKV" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_vungmien]"
+                          name="Id_vungmien" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_LoaiKV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_LoaiKV]"
+                          name="Id_LoaiKV" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Các Dim\Dim_KV.Paths[Data Conversion Output]"
+                  endId="Package\Các Dim\Dim_KV\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\Các Dim\Dim_KV\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\Các Dim\Dim_KV.Paths[OLE DB Source Output]"
+                  endId="Package\Các Dim\Dim_KV\Data Conversion.Inputs[Data Conversion Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Các Dim\Dim_KV\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Các Dim\Dim_LoaiKV"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{46c909a8-a529-4025-a3ef-81074742f2d9}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Dim_LoaiKV"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Các Dim\Dim_LoaiKV\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Inputs[Data Conversion Input].Columns[Id_LoaiKV]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="Id_LoaiKV"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Id_LoaiKV]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Id_LoaiKV]"
+                          name="Copy of Id_LoaiKV"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Dim_LoaiKV]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[name]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="name"
+                          externalMetadataColumnId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].Columns[name]" />
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of Id_LoaiKV]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="Copy of Id_LoaiKV"
+                          externalMetadataColumnId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_LoaiKV]"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Id_LoaiKV]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_LoaiKV]"
+                          dataType="wstr"
+                          length="10"
+                          name="Id_LoaiKV" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                          dataType="wstr"
+                          length="50"
+                          name="name" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[LoaiKV]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_LoaiKV]"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]"
+                          name="Id_LoaiKV"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].Columns[name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[name]"
+                          length="50"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].Columns[name]"
+                          name="name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_LoaiKV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_LoaiKV" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[name]"
+                          dataType="wstr"
+                          length="50"
+                          name="name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_LoaiKV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_LoaiKV]"
+                          name="Id_LoaiKV" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[name]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[name]"
+                          name="name" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Các Dim\Dim_LoaiKV.Paths[Data Conversion Output]"
+                  endId="Package\Các Dim\Dim_LoaiKV\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\Các Dim\Dim_LoaiKV.Paths[OLE DB Source Output]"
+                  endId="Package\Các Dim\Dim_LoaiKV\Data Conversion.Inputs[Data Conversion Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Các Dim\Dim_LoaiKV\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Các Dim\Dim_Nam"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{990ada5d-e257-4a57-b511-10b49d96e38b}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Dim_Nam"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Các Dim\Dim_Nam\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Các Dim\Dim_Nam\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_Nam\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\Các Dim\Dim_Nam\Data Conversion.Inputs[Data Conversion Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Các Dim\Dim_Nam\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\Các Dim\Dim_Nam\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_Nam\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_Nam\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Các Dim\Dim_Nam\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Dim_Nam]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Các Dim\Dim_Nam\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Các Dim\Dim_Nam\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id_nam]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="Id_nam"
+                          externalMetadataColumnId="Package\Các Dim\Dim_Nam\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_nam]"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_nam]" />
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[nam]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="nam"
+                          externalMetadataColumnId="Package\Các Dim\Dim_Nam\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nam]"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].Columns[nam]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_nam]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_nam" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[nam]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="nam" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_Nam\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Các Dim\Dim_Nam\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Các Dim\Dim_Nam\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Nam]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Các Dim\Dim_Nam\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_nam]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_nam]"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_nam]"
+                          name="Id_nam"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].Columns[nam]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nam]"
+                          length="50"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].Columns[nam]"
+                          name="nam"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_nam]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_nam" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[nam]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="nam" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_nam]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_nam]"
+                          name="Id_nam" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nam]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[nam]"
+                          name="nam" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Các Dim\Dim_Nam.Paths[Data Conversion Output]"
+                  endId="Package\Các Dim\Dim_Nam\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\Các Dim\Dim_Nam\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\Các Dim\Dim_Nam.Paths[OLE DB Source Output]"
+                  endId="Package\Các Dim\Dim_Nam\Data Conversion.Inputs[Data Conversion Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Các Dim\Dim_Nam\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Các Dim\Dim_VungMien"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{45d68a33-01cb-40d8-8d8e-89d18cba0765}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Dim_VungMien"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Các Dim\Dim_VungMien\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Các Dim\Dim_VungMien\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_VungMien\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\Các Dim\Dim_VungMien\Data Conversion.Inputs[Data Conversion Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Các Dim\Dim_VungMien\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\Các Dim\Dim_VungMien\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_VungMien\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_VungMien\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Các Dim\Dim_VungMien\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Dim_Mien]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id_vungmien]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="Id_vungmien"
+                          externalMetadataColumnId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_vungmien]"
+                          lineageId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_vungmien]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_vungmien" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                          dataType="wstr"
+                          length="50"
+                          name="name" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Các Dim\Dim_VungMien\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Mien]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_vungmien]"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_vungmien]"
+                          name="Id_vungmien"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output].Columns[name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[name]"
+                          length="50"
+                          lineageId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output].Columns[name]"
+                          name="name"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_vungmien" />
+                        <externalMetadataColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[name]"
+                          dataType="wstr"
+                          length="50"
+                          name="name" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_vungmien]"
+                          name="Id_vungmien" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[name]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[name]"
+                          name="name" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Các Dim\Dim_VungMien.Paths[Data Conversion Output]"
+                  endId="Package\Các Dim\Dim_VungMien\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Data Conversion Output"
+                  startId="Package\Các Dim\Dim_VungMien\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\Các Dim\Dim_VungMien.Paths[OLE DB Source Output]"
+                  endId="Package\Các Dim\Dim_VungMien\Data Conversion.Inputs[Data Conversion Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Các Dim\Dim_VungMien\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tạo Fact"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{9A663530-0C9E-4E07-B84B-902A08BB7440}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tạo Fact">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Tạo Fact\Fact_ThongKe"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{D97E3655-D7E5-4920-9C15-0927593ED1A1}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Fact_ThongKe"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Fact_ThongKe]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DWH_DimFact]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id_LoaiKV]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="Id_LoaiKV"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_LoaiKV]"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]" />
+                        <inputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id_KV]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="Id_KV"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_KV]"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_KV]" />
+                        <inputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id_nam]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="Id_nam"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_nam]"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_nam]" />
+                        <inputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id_vungmien]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="Id_vungmien"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_vungmien]"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_vungmien]" />
+                        <inputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[TenKV]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="TenKV"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TenKV]"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[TenKV]" />
+                        <inputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DanSo]"
+                          cachedDataType="r8"
+                          cachedName="DanSo"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DanSo]"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[DanSo]" />
+                        <inputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Labor_15]"
+                          cachedDataType="r8"
+                          cachedName="Labor_15"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Tren15TuoiCoViec]"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Labor_15]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_vungmien" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_nam]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_nam" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_LoaiKV]"
+                          dataType="wstr"
+                          length="10"
+                          name="Id_LoaiKV" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id_KV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_KV" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TenKV]"
+                          dataType="wstr"
+                          length="50"
+                          name="TenKV" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Tren15TuoiCoViec]"
+                          dataType="r8"
+                          name="Tren15TuoiCoViec" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DanSo]"
+                          dataType="r8"
+                          name="DanSo" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[MatDoDanSoRollup]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      connectionManagerRefId="Package.ConnectionManagers[ADMIN.DanSoDB]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_LoaiKV]"
+                          length="10"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_LoaiKV]"
+                          name="Id_LoaiKV"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_KV]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_KV]"
+                          length="10"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_KV]"
+                          name="Id_KV"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_nam]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_nam]"
+                          length="10"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_nam]"
+                          name="Id_nam"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_vungmien]"
+                          length="10"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Id_vungmien]"
+                          name="Id_vungmien"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Labor_15]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Labor_15]"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[Labor_15]"
+                          name="Labor_15"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[TenKV]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TenKV]"
+                          length="50"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[TenKV]"
+                          name="TenKV"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[DanSo]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DanSo]"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].Columns[DanSo]"
+                          name="DanSo"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_LoaiKV]"
+                          dataType="wstr"
+                          length="10"
+                          name="Id_LoaiKV" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_KV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_KV" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_nam]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_nam" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Id_vungmien" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Labor_15]"
+                          dataType="r8"
+                          name="Labor_15" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TenKV]"
+                          dataType="wstr"
+                          length="50"
+                          name="TenKV" />
+                        <externalMetadataColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DanSo]"
+                          dataType="r8"
+                          name="DanSo" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_LoaiKV]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_LoaiKV]"
+                          name="Id_LoaiKV" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_KV]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_KV]"
+                          name="Id_KV" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_nam]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_nam]"
+                          name="Id_nam" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_vungmien]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Id_vungmien]"
+                          name="Id_vungmien" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Labor_15]"
+                          dataType="r8"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Labor_15]"
+                          name="Labor_15" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TenKV]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TenKV]"
+                          name="TenKV" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DanSo]"
+                          dataType="r8"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DanSo]"
+                          name="DanSo" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Tạo Fact\Fact_ThongKe.Paths[OLE DB Source Output]"
+                  endId="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Tạo Fact\Fact_ThongKe\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{B0DFFDFF-FFF2-470C-AB14-5B750ED7782A}"
+      DTS:From="Package\Các Dim"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Tạo Fact" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="115.2,41.6"
+          Id="Package\Các Dim\Dim_KV"
+          TopLeft="11.8285769024676,26.0823559548203" />
+        <NodeLayout
+          Size="134.4,41.6"
+          Id="Package\Các Dim\Dim_LoaiKV"
+          TopLeft="175.400008259501,23.0235323825097" />
+        <NodeLayout
+          Size="124.8,41.6"
+          Id="Package\Các Dim\Dim_Nam"
+          TopLeft="11.1142911760177,94.0352966594038" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Các Dim\Dim_VungMien"
+          TopLeft="174.685722533051,95.1647095394794" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="358.4,177.6"
+          Size="358.4,220.8"
+          Id="Package\Các Dim"
+          TopLeft="295.71429075027,70.352942163144" />
+        <NodeLayout
+          Size="145.6,41.6"
+          Id="Package\Tạo Fact\Fact_ThongKe"
+          TopLeft="51.7714358699566,26.1529470857866" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="224.8,122.4"
+          Size="224.8,165.6"
+          Id="Package\Tạo Fact"
+          TopLeft="377.142863565562,363.235299211885" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="474.91429075027,291.152942163144">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="14.6285728152919,72.0823570487409"
+              Start="0,0"
+              End="14.6285728152919,64.5823570487409">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.0411785243705" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,32.0411785243705"
+                    Point2="0,36.0411785243705"
+                    Point3="4,36.0411785243705" />
+                  <mssgle:LineSegment
+                    End="10.6285728152919,36.0411785243705" />
+                  <mssgle:CubicBezierSegment
+                    Point1="10.6285728152919,36.0411785243705"
+                    Point2="14.6285728152919,36.0411785243705"
+                    Point3="14.6285728152919,40.0411785243705" />
+                  <mssgle:LineSegment
+                    End="14.6285728152919,64.5823570487409" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Các Dim\Dim_KV">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Các Dim\Dim_KV\OLE DB Source"
+          TopLeft="308.571433826369,117.000001640881" />
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\Các Dim\Dim_KV\Data Conversion"
+          TopLeft="310.714291005719,234.764709174839" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Các Dim\Dim_KV\OLE DB Destination"
+          TopLeft="300.00000510897,355.588240281108" />
+        <EdgeLayout
+          Id="Package\Các Dim\Dim_KV.Paths[OLE DB Source Output]"
+          TopLeft="385.842862416044,158.600001640881">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76.1647075339584"
+              Start="0,0"
+              End="0,68.6647075339584">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.6647075339584" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Các Dim\Dim_KV.Paths[Data Conversion Output]"
+          TopLeft="386.757148057344,276.364709174839">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,79.2235311062691"
+              Start="0,0"
+              End="0,71.7235311062691">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,71.7235311062691" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Các Dim\Dim_KV\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Các Dim\Dim_KV\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Các Dim\Dim_LoaiKV">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\Các Dim\Dim_LoaiKV\Data Conversion"
+          TopLeft="294.714291005719,254.764709174839" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Các Dim\Dim_LoaiKV\OLE DB Source"
+          TopLeft="286,134" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Các Dim\Dim_LoaiKV\OLE DB Destination"
+          TopLeft="271,405" />
+        <EdgeLayout
+          Id="Package\Các Dim\Dim_LoaiKV.Paths[OLE DB Source Output]"
+          TopLeft="360.8,175.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="11.5142910057191,79.164709174839"
+              Start="0,0"
+              End="11.5142910057191,71.664709174839">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5823545874195" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.5823545874195"
+                    Point2="0,39.5823545874195"
+                    Point3="4,39.5823545874195" />
+                  <mssgle:LineSegment
+                    End="7.51429100571909,39.5823545874195" />
+                  <mssgle:CubicBezierSegment
+                    Point1="7.51429100571909,39.5823545874195"
+                    Point2="11.5142910057191,39.5823545874195"
+                    Point3="11.5142910057191,43.5823545874195" />
+                  <mssgle:LineSegment
+                    End="11.5142910057191,71.664709174839" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Các Dim\Dim_LoaiKV.Paths[Data Conversion Output]"
+          TopLeft="372.314291005719,296.364709174839">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-16.1142910057191,108.635290825161"
+              Start="0,0"
+              End="-16.1142910057191,101.135290825161">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.3176454125804" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,50.3176454125804"
+                    Point2="0,54.3176454125804"
+                    Point3="-4,54.3176454125804" />
+                  <mssgle:LineSegment
+                    End="-12.1142910057191,54.3176454125804" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-12.1142910057191,54.3176454125804"
+                    Point2="-16.1142910057191,54.3176454125804"
+                    Point3="-16.1142910057191,58.3176454125804" />
+                  <mssgle:LineSegment
+                    End="-16.1142910057191,101.135290825161" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
+    design-time-name="Package\Các Dim\Dim_Nam">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Các Dim\Dim_Nam\OLE DB Destination"
+          TopLeft="300.00000510897,355.588240281108" />
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\Các Dim\Dim_Nam\Data Conversion"
+          TopLeft="310.714291005719,234.764709174839" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Các Dim\Dim_Nam\OLE DB Source"
+          TopLeft="308.571433826369,117.000001640881" />
+        <EdgeLayout
+          Id="Package\Các Dim\Dim_Nam.Paths[Data Conversion Output]"
+          TopLeft="386.757148057344,276.364709174839">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,79.2235311062691"
+              Start="0,0"
+              End="0,71.7235311062691">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,71.7235311062691" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Các Dim\Dim_Nam.Paths[OLE DB Source Output]"
+          TopLeft="385.842862416044,158.600001640881">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76.1647075339584"
+              Start="0,0"
+              End="0,68.6647075339584">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.6647075339584" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Các Dim\Dim_Nam\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Các Dim\Dim_Nam\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Các Dim\Dim_VungMien">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Các Dim\Dim_VungMien\OLE DB Destination"
+          TopLeft="300.00000510897,355.588240281108" />
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\Các Dim\Dim_VungMien\Data Conversion"
+          TopLeft="310.714291005719,234.764709174839" />
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Các Dim\Dim_VungMien\OLE DB Source"
+          TopLeft="308.571433826369,117.000001640881" />
+        <EdgeLayout
+          Id="Package\Các Dim\Dim_VungMien.Paths[Data Conversion Output]"
+          TopLeft="386.757148057344,276.364709174839">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,79.2235311062691"
+              Start="0,0"
+              End="0,71.7235311062691">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,71.7235311062691" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Các Dim\Dim_VungMien.Paths[OLE DB Source Output]"
+          TopLeft="385.842862416044,158.600001640881">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,76.1647075339584"
+              Start="0,0"
+              End="0,68.6647075339584">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.6647075339584" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Các Dim\Dim_VungMien\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Các Dim\Dim_VungMien\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Tạo Fact\Fact_ThongKe">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Tạo Fact\Fact_ThongKe\OLE DB Source"
+          TopLeft="346,139" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination"
+          TopLeft="351,376" />
+        <EdgeLayout
+          Id="Package\Tạo Fact\Fact_ThongKe.Paths[OLE DB Source Output]"
+          TopLeft="420.8,180.6">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="15.3999999999999,195.4"
+              Start="0,0"
+              End="15.3999999999999,187.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,93.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,93.7"
+                    Point2="0,97.7"
+                    Point3="4,97.7" />
+                  <mssgle:LineSegment
+                    End="11.3999999999999,97.7" />
+                  <mssgle:CubicBezierSegment
+                    Point1="11.3999999999999,97.7"
+                    Point2="15.3999999999999,97.7"
+                    Point3="15.3999999999999,101.7" />
+                  <mssgle:LineSegment
+                    End="15.3999999999999,187.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Tạo Fact\Fact_ThongKe\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">View</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Tạo Fact\Fact_ThongKe\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Các Dim\Dim_LoaiKV\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Các Dim\Dim_LoaiKV\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

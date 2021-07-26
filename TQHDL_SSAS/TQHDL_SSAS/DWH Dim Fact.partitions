@@ -1,0 +1,105 @@
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="0bb6f510-138d-472e-b993-ecb62cf64079" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>DWH Dim Fact</ID>
+  <MeasureGroups>
+    <MeasureGroup>
+      <ID>Fact Thong Ke</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="7689c874-febd-471d-aae5-f8fb5a00321b">
+          <ID>Fact Thong Ke</ID>
+          <Name>Fact Thong Ke</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="e41df43c-9860-4a9e-9efd-7254c8183fcd">
+            <DataSourceViewID>DWH Dim Fact</DataSourceViewID>
+            <TableID>dbo_Fact_ThongKe</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Dim Nam</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="9a2348b6-f3bd-4f21-a7fc-8d6afff67663">
+          <ID>Dim Nam</ID>
+          <Name>Dim Nam</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="871b25d9-ef4d-48c9-8cda-e94de594c741">
+            <DataSourceViewID>DWH Dim Fact</DataSourceViewID>
+            <TableID>dbo_Dim_Nam</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Dim Mien</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="f2005493-146c-489b-9903-05e779a2afad">
+          <ID>Dim Mien</ID>
+          <Name>Dim Mien</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="580bc7ea-9139-4292-b217-965773eed333">
+            <DataSourceViewID>DWH Dim Fact</DataSourceViewID>
+            <TableID>dbo_Dim_Mien</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Dim Loai KV</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="381d751f-c358-4f9f-a98f-5c680db8b0f3">
+          <ID>Dim Loai KV</ID>
+          <Name>Dim Loai KV</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="dcebe9fd-c8f0-48df-a01a-b33745d2d844">
+            <DataSourceViewID>DWH Dim Fact</DataSourceViewID>
+            <TableID>dbo_Dim_LoaiKV</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Dim KV</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="2c5388c9-fb3a-4bf3-b1bd-839f6e7d4b0c">
+          <ID>Dim KV</ID>
+          <Name>Dim KV</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="89b2324d-dd66-40b7-8104-9f396c69ccc3">
+            <DataSourceViewID>DWH Dim Fact</DataSourceViewID>
+            <TableID>dbo_Dim_KV</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+  </MeasureGroups>
+</Cube>
